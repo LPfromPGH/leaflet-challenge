@@ -7,6 +7,7 @@ d3.json(queryUrl).then(function (data) {
     createFeatures(data.features);
 
 });
+//markers and colors
 function markerSize(magnitude) {
     return magnitude * 20000;
 };
@@ -28,7 +29,7 @@ function createFeatures(earthquakeData) {
       layer.bindPopup(`<h3>Location: ${feature.properties.place}</h3><hr><p>Date: ${new Date(feature.properties.time)}</p><p>Magnitude: ${feature.properties.mag}</p><p>Depth: ${feature.geometry.coordinates[2]}</p>`);
 
     }
-// Create the earthquake layer from the JSON data
+// Create the earthquake layer and markers from the JSON data
     var earthquakes = L.geoJSON(earthquakeData, {
         onEachFeature: onEachFeature,
 
@@ -75,10 +76,7 @@ function createMap(earthquakes){
         zoom: 2,
         layers: [street, earthquakes]
     });
-// create a control layer
-//    L.control.layers(baseMaps, overlayMaps, {
-//        collapsed: false
-//    });
+//make the legend
     var legend = L.control({position: "bottomright"});
     legend.onAdd = function() {
         var div = L.DomUtil.create("div", "info legend"),
